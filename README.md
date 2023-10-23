@@ -6,4 +6,4 @@ Autor: *Sergio López Fernández*
 Este repositorio contiene los proyectos de la asignatura de Programación de Inteligencia Artificial del curso 2023 - 2024.
 
 ### Contenido
-- [Estructuras Repetitivas](/tree/main/EstructurasRepetitivas)
+- [Estructuras Repetitivas](/EstructurasRepetitivas)
