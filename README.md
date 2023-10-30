@@ -7,3 +7,4 @@ Este repositorio contiene los proyectos de la asignatura de Programación de Int
 
 ### Contenido
 - [Estructuras Repetitivas](/EstructurasRepetitivas)
+- [Funciones](/Funciones)

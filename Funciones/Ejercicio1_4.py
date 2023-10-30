@@ -1,7 +1,7 @@
 """
 Enunciado:
-Modifica el programa anterior para que la introducción de las variables sea una opción del menú (la primera).
-Las variables se inicializan a cero.
+Crea una función para gestionar menús: recibe una lista de opciones, las muestra numeradas, pide una opción
+(por su número) y devuelve la opción escogida. Modifica el último programa para que use esta función.
 
 Fecha: 30/10/2023.
 Autores: Sergio López Fernández.
@@ -13,10 +13,15 @@ print("-------------------------------------------------------------------------
 
 def main():
     a, b = 0, 0
+    values_asked = False
     while True:
-        option = option_value()
+        option = menu("Introducir valores A y B", "Sumar los valores A y B", "Restar los valores A y B",
+                      "Multiplicar los valores A y B", "Dividir los valores A y B", "Terminar el programa")
         if option == 1:
             a, b = ask_values()
+            values_asked = True
+        elif not values_asked:
+            print("No se han introducido los valores de A y B, por favor, introdúzcalos desde la opción 1.")
         elif option == 2:
             addition(a, b)
         elif option == 3:
@@ -25,25 +30,22 @@ def main():
             multiplication(a, b)
         elif option == 5:
             division(a, b)
-        elif option == 6:
-            break
         else:
-            print("La opción introducida no es correcta, por favor, introduzca una opción válida.")
+            break
     print("Fin del programa.")
 
 
-def option_value():
-    print("\nMenú")
-    print("----")
-    print("1. Introducir valores A y B")
-    print("2. Sumar los valores A y B")
-    print("3. Restar los valores A y B")
-    print("4. Multiplicar los valores A y B")
-    print("5. Dividir los valores A y B")
-    print("6. Terminar el programa")
-    option = int(input("\nIntroduzca una opción: "))
-    print()
-    return option
+def menu(*options):
+    while True:
+        print("\nMenú")
+        print("----")
+        for i in range(len(options)):
+            print(f"{i+1}. {options[i]}")
+        option = int(input("\nEscoja una opción: "))
+        print()
+        if 1 <= option <= len(options):
+            return option
+        print("La opción introducida no es correcta, por favor, introduzca una opción válida.")
 
 
 def ask_values():

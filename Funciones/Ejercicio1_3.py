@@ -1,7 +1,7 @@
 """
 Enunciado:
-Modifica el programa anterior para que la introducción de las variables sea una opción del menú (la primera).
-Las variables se inicializan a cero.
+Modifica el programa anterior para que si no se introducen las dos variables desde la opción correspondiente no
+se puedan ejecutar el resto de las opciones.
 
 Fecha: 30/10/2023.
 Autores: Sergio López Fernández.
@@ -13,10 +13,16 @@ print("-------------------------------------------------------------------------
 
 def main():
     a, b = 0, 0
+    values_asked = False
     while True:
         option = option_value()
         if option == 1:
             a, b = ask_values()
+            values_asked = True
+        elif option == 6:
+            break
+        elif not values_asked:
+            print("No se han introducido los valores de A y B, por favor, introdúzcalos desde la opción 1.")
         elif option == 2:
             addition(a, b)
         elif option == 3:
@@ -25,8 +31,6 @@ def main():
             multiplication(a, b)
         elif option == 5:
             division(a, b)
-        elif option == 6:
-            break
         else:
             print("La opción introducida no es correcta, por favor, introduzca una opción válida.")
     print("Fin del programa.")
