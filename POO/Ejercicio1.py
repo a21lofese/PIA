@@ -18,62 +18,83 @@ Autores: Sergio López Fernández.
 class Duration:
 
     def __init__(self, h, m, s):
-        self.h = h
-        self.m = m
-        self.s = s
-        self.normalize()
+        self.__h, self.__m, self.__s = h, m, s
+        self.__normalize()
 
-    def normalize(self):
+    def __normalize(self):
         self.m += self.s // 60
         self.s = self.s % 60
         self.h += self.m // 60
         self.m = self.m % 60
 
+    def to_seconds(self):
+        return self.h * 3600 + self.m * 60 + self.s
+
+    @property
+    def h(self):
+        return self.__h
+
+    @h.setter
+    def h(self, h):
+        self.__h = h
+
+    @property
+    def m(self):
+        return self.__m
+
+    @m.setter
+    def m(self, m):
+        self.__m = m
+
+    @property
+    def s(self):
+        return self.__s
+
+    @s.setter
+    def s(self, s):
+        self.__s = s
+
     def __str__(self):
-        # Formateo de salida para que siempre tenga dos dígitos
-        return f"{self.h:02}:{self.m:02}:{self.s:02}"
+        return f"{self.h}:{self.m:02}:{self.s:02}"
 
     # Comparación
-    def __eq__(self, other):
-        return self.h == other.h and self.m == other.m and self.s == other.s
+    def __eq__(self, other: 'Duration'):
+        return self.to_seconds() == other.to_seconds()
 
-    def __lt__(self, other):
-        return self.h < other.h or (self.h == other.h and self.m < other.m) or (self.h == other.h and self.m == other.m and self.s < other.s)
+    def __lt__(self, other: 'Duration'):
+        return self.to_seconds() < other.to_seconds()
 
-    def __gt__(self, other):
-        return self.h > other.h or (self.h == other.h and self.m > other.m) or (self.h == other.h and self.m == other.m and self.s > other.s)
+    def __gt__(self, other: 'Duration'):
+        return self.to_seconds() > other.to_seconds()
 
-    def __le__(self, other):
-        return self.h <= other.h or (self.h == other.h and self.m <= other.m) or (self.h == other.h and self.m == other.m and self.s <= other.s)
+    def __le__(self, other: 'Duration'):
+        return self.to_seconds() <= other.to_seconds()
 
-    def __ge__(self, other):
-        return self.h >= other.h or (self.h == other.h and self.m >= other.m) or (self.h == other.h and self.m == other.m and self.s >= other.s)
+    def __ge__(self, other: 'Duration'):
+        return self.to_seconds() >= other.to_seconds()
 
-    def __ne__(self, other):
-        return self.h != other.h or self.m != other.m or self.s != other.s
+    def __ne__(self, other: 'Duration'):
+        return self.to_seconds() != other.to_seconds()
 
     # Operaciones de Durations
     def __add__(self, other):
-        return Duration(self.h + other.h, self.m + other.m, self.s + other.s)
+        if isinstance(other, Duration):
+            return Duration(self.h + other.h, self.m + other.m, self.s + other.s)
+        elif isinstance(other, int):
+            return Duration(self.h, self.m, self.s + other)
+        else:
+            raise TypeError("Tipo de dato no soportado")
 
     def __radd__(self, other):
         return self.__add__(other)
 
     def __sub__(self, other):
-        return Duration(self.h - other.h, self.m - other.m, self.s - other.s)
-
-    def __rsub__(self, other):
-        return self.__sub__(other)
-
-    # Operaciones de segundos
-    def __add__(self, other):
-        return Duration(self.h, self.m, self.s + other)
-
-    def __radd__(self, other):
-        return self.__add__(other)
-
-    def __sub__(self, other):
-        return Duration(self.h, self.m, self.s - other)
+        if isinstance(other, Duration):
+            return Duration(self.h - other.h, self.m - other.m, self.s - other.s)
+        elif isinstance(other, int):
+            return Duration(self.h, self.m, self.s - other)
+        else:
+            raise TypeError("Tipo de dato no soportado")
 
     def __rsub__(self, other):
         return self.__sub__(other)
