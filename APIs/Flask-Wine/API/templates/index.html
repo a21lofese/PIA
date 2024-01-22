@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Clasificador de Vinos</title>
+</head>
+<body>
+    <h1>Clasificador de Vinos</h1>
+    {% if prediction %}
+        <h2>La predicción es: {{ prediction }}</h2>
+    {% else %}
+    <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+        <p>Rellena los campos para predecir la calidad del vino</p>
+        <label for="fixed_acidity">Fixed Acidity
+            <input type="number" name="fixed_acidity" min="0" step="any" required>
+        </label>
+        <label for="volatile_acidity">Volatile Acidity
+            <input type="number" name="volatile_acidity" min="0" step="any" required>
+        </label>
+        <label for="citric_acid">Citric Acid
+            <input type="number" name="citric_acid" min="0" step="any" required>
+        </label>
+        <label for="residual_sugar">Residual Sugar
+            <input type="number" name="residual_sugar" min="0" step="any" required>
+        </label>
+        <label for="chlorides">Chlorides
+            <input type="number" name="chlorides" min="0" step="any" required>
+        </label>
+        <label for="free_sulfur_dioxide">Free Sulfur Dioxide
+            <input type="number" name="free_sulfur_dioxide" min="0" step="any" required>
+        </label>
+        <label for="total_sulfur_dioxide">Total Sulfur Dioxide
+            <input type="number" name="total_sulfur_dioxide" min="0" step="any" required>
+        </label>
+        <label for="density">Density
+            <input type="number" name="density" min="0" step="any" required>
+        </label>
+        <label for="pH">pH
+            <input type="number" name="pH" min="0" step="any" required>
+        </label>
+        <label for="sulphates">Sulphates
+            <input type="number" name="sulphates" min="0" step="any" required>
+        </label>
+        <label for="alcohol">Alcohol
+            <input type="number" name="alcohol" min="0" step="any" required>
+        </label>
+        <input type="submit" value="Predecir">
+    </form>
+    {% endif %}
+</body>
+</html>
