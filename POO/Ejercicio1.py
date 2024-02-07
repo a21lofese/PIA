@@ -14,10 +14,15 @@ Fecha: 28/11/2023.
 Autores: Sergio López Fernández.
 """
 
+from typeguard import typechecked
 
+
+@typechecked
 class Duration:
 
-    def __init__(self, h, m, s):
+    def __init__(self, h: int, m: int, s: int):
+        if h < 0 or m < 0 or s < 0:
+            raise ValueError("Los valores no pueden ser negativos")
         self.__h, self.__m, self.__s = h, m, s
         self.__normalize()
 
