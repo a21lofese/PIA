@@ -22,6 +22,7 @@ def predict():
     img = cv2.imread('upload/image.png')
     img = cv2.resize(img, (28, 28))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = cv2.bitwise_not(img)
     img = np.expand_dims(img, axis=0) / 255.0
 
     prediction = np.argmax(model.predict(img))
