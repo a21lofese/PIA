@@ -9,55 +9,100 @@
     <title>Cliente Potencial</title>
 </head>
 <body>
-    <h1>Predicción de Conversión de Leads</h1>
+    <h1>Predicción de Clientes Potenciales</h1>
     <form action="{{url_for('predict')}}" method="post" enctype="multipart/form-data">
-        <p>Rellena los campos para predecir la conversión de leads</p>
+        <p>Rellena los campos para predecir si un cliente potencial se convertirá en cliente o no.</p>
         <label for="LeadOrigin">Lead Origin
-            <input type="text" name="LeadOrigin" id="LeadOrigin" value="API" required>
+            <input type="text" name="LeadOrigin" id="LeadOrigin" value="Landing Page Submission" required>
         </label><br>
         <label for="LeadSource">Lead Source
-            <input type="text" name="LeadSource" id="LeadSource" value="Olark Chat" required>
+            <input type="text" name="LeadSource" id="LeadSource" value="Direct Traffic" required>
         </label><br>
         <label for="DoNotEmail">Do Not Email
             <input type="text" name="DoNotEmail" id="DoNotEmail" value="No" required>
         </label><br>
-        <label for="TotalTimeSpentOnWebsite">Total Time Spent On Website
-            <input type="number" name="TotalTimeSpentOnWebsite" id="TotalTimeSpentOnWebsite" value="0" required>
+        <label for="DoNotCall">Do Not Call
+            <input type="text" name="DoNotCall" id="DoNotCall" value="No" required>
+        </label><br>
+        <label for="TotalVisits">Total Visits
+            <input type="number" name="TotalVisits" id="TotalVisits" value="2" required>
+        </label><br>
+        <label for="TotalTimeSpentonWebsite">Total Time Spent on Website
+            <input type="number" name="TotalTimeSpentonWebsite" id="TotalTimeSpentonWebsite" value="1532" required>
+        </label><br>
+        <label for="PageViewsPerVisit">Page Views Per Visit
+            <input type="number" name="PageViewsPerVisit" id="PageViewsPerVisit" value="2" required>
         </label><br>
         <label for="LastActivity">Last Activity
-            <input type="text" name="LastActivity" id="LastActivity" value="Page Visited on Website" required>
+            <input type="text" name="LastActivity" id="LastActivity" value="Email Opened" required>
+        </label><br>
+        <label for="Country">Country
+            <input type="text" name="Country" id="Country" value="India" required>
         </label><br>
         <label for="Specialization">Specialization
-            <input type="text" name="Specialization" id="Specialization" value="Select" required>
+            <input type="text" name="Specialization" id="Specialization" value="Business Administration" required>
         </label><br>
-        <label for="WhatIsYourCurrentOccupation">What Is Your Current Occupation
-            <input type="text" name="WhatIsYourCurrentOccupation" id="WhatIsYourCurrentOccupation" value="Unemployed" required>
+        <label for="HowdidyouhearaboutXEducation">How did you hear about X Education
+            <input type="text" name="HowdidyouhearaboutXEducation" id="HowdidyouhearaboutXEducation" value="Select" required>
+        </label><br>
+        <label for="Whatisyourcurrentoccupation">What is your current occupation
+            <input type="text" name="Whatisyourcurrentoccupation" id="Whatisyourcurrentoccupation" value="Student" required>
+        </label><br>
+        <label for="Whatmattersmosttoyouinchoosingacourse">What matters most to you in choosing a course
+            <input type="text" name="Whatmattersmosttoyouinchoosingacourse" id="Whatmattersmosttoyouinchoosingacourse" value="Better Career Prospects" required>
+        </label><br>
+        <label for="Search">Search
+            <input type="text" name="Search" id="Search" value="No" required>
+        </label><br>
+        <label for="NewspaperArticle">Newspaper Article
+            <input type="text" name="NewspaperArticle" id="NewspaperArticle" value="No" required>
+        </label><br>
+        <label for="XEducationForums">X Education Forums
+            <input type="text" name="XEducationForums" id="XEducationForums" value="No" required>
+        </label><br>
+        <label for="Newspaper">Newspaper
+            <input type="text" name="Newspaper" id="Newspaper" value="No" required>
+        </label><br>
+        <label for="DigitalAdvertisement">Digital Advertisement
+            <input type="text" name="DigitalAdvertisement" id="DigitalAdvertisement" value="No" required>
+        </label><br>
+        <label for="ThroughRecommendations">Through Recommendations
+            <input type="text" name="ThroughRecommendations" id="ThroughRecommendations" value="No" required>
         </label><br>
         <label for="Tags">Tags
-            <input type="text" name="Tags" id="Tags" value="Interested in other courses" required>
+            <input type="text" name="Tags" id="Tags" value="Will revert after reading the email" required>
         </label><br>
         <label for="LeadQuality">Lead Quality
-            <input type="text" name="LeadQuality" id="LeadQuality" value="Low in Relevance" required>
+            <input type="text" name="LeadQuality" id="LeadQuality" value="Might be" required>
         </label><br>
         <label for="LeadProfile">Lead Profile
-            <input type="text" name="LeadProfile" id="LeadProfile" value="Select" required>
+            <input type="text" name="LeadProfile" id="LeadProfile" value="Potential Lead" required>
         </label><br>
         <label for="City">City
-            <input type="text" name="City" id="City" value="Select" required>
+            <input type="text" name="City" id="City" value="Mumbai" required>
         </label><br>
         <label for="AsymmetriqueActivityIndex">Asymmetrique Activity Index
             <input type="text" name="AsymmetriqueActivityIndex" id="AsymmetriqueActivityIndex" value="02.Medium" required>
         </label><br>
         <label for="AsymmetriqueProfileIndex">Asymmetrique Profile Index
-            <input type="text" name="AsymmetriqueProfileIndex" id="AsymmetriqueProfileIndex" value="02.Medium" required>
+            <input type="text" name="AsymmetriqueProfileIndex" id="AsymmetriqueProfileIndex" value="01.High" required>
+        </label><br>
+        <label for="AsymmetriqueActivityScore">Asymmetrique Activity Score
+            <input type="text" name="AsymmetriqueActivityScore" id="AsymmetriqueActivityScore" value="14" required>
+        </label><br>
+        <label for="AsymmetriqueProfileScore">Asymmetrique Profile Score
+            <input type="text" name="AsymmetriqueProfileScore" id="AsymmetriqueProfileScore" value="20" required>
+        </label><br>
+        <label for="AfreecopyofMasteringTheInterview">A free copy of Mastering The Interview
+            <input type="text" name="AfreecopyofMasteringTheInterview" id="AfreecopyofMasteringTheInterview" value="Yes" required>
         </label><br>
         <label for="LastNotableActivity">Last Notable Activity
-            <input type="text" name="LastNotableActivity" id="LastNotableActivity" value="Modified" required>
+            <input type="text" name="LastNotableActivity" id="LastNotableActivity" value="Email Opened" required>
         </label><br>
         <input type="submit" value="Predecir">
     </form>
     {% if prediction is not none %}
-    <h2>Predicción: {{prediction}}</h2>
+    <h2>Resultado: {{prediction}}</h2>
     {% endif %}
 </body>
 </html>

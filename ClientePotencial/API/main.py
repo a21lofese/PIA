@@ -2,9 +2,13 @@ from flask import Flask, request, render_template
 import pickle
 import pandas as pd
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
+from sklearn.compose import ColumnTransformer
 
 # Cargar el modelo y el preprocesador desde archivos
-model = pickle.load(open('../model/model.pkl', 'rb'))
+with open('../model/model.pkl', 'rb') as file:
+    model = pickle.load(file)
+    preprocessor = pickle.load(file)
+    df_columns = pickle.load(file)
 
 app = Flask(__name__)
 
@@ -23,47 +27,47 @@ def predict():
         data['LeadOrigin'],
         data['LeadSource'],
         data['DoNotEmail'],
-        data['TotalTimeSpentOnWebsite'],
+        data['DoNotCall'],
+        float(data['TotalVisits']),
+        int(data['TotalTimeSpentonWebsite']),
+        float(data['PageViewsPerVisit']),
         data['LastActivity'],
+        data['Country'],
         data['Specialization'],
-        data['WhatIsYourCurrentOccupation'],
+        data['HowdidyouhearaboutXEducation'],
+        data['Whatisyourcurrentoccupation'],
+        data['Whatmattersmosttoyouinchoosingacourse'],
+        data['Search'],
+        data['NewspaperArticle'],
+        data['XEducationForums'],
+        data['Newspaper'],
+        data['DigitalAdvertisement'],
+        data['ThroughRecommendations'],
         data['Tags'],
         data['LeadQuality'],
         data['LeadProfile'],
         data['City'],
         data['AsymmetriqueActivityIndex'],
         data['AsymmetriqueProfileIndex'],
+        float(data['AsymmetriqueActivityScore']),
+        float(data['AsymmetriqueProfileScore']),
+        data['AfreecopyofMasteringTheInterview'],
         data['LastNotableActivity']
     ]], columns=[
-        'LeadOrigin',  # string
-        'LeadSource',  # string
-        'DoNotEmail',  # string
-        'TotalTimeSpentOnWebsite',  # int
-        'LastActivity',  # string
-        'Specialization',  # string
-        'WhatIsYourCurrentOccupation',  # string
-        'Tags',  # string
-        'LeadQuality',  # string
-        'LeadProfile',  # string
-        'City',  # string
-        'AsymmetriqueActivityIndex',  # string
-        'AsymmetriqueProfileIndex',  # string
-        'LastNotableActivity'  # string
+        "LeadOrigin", "LeadSource", "DoNotEmail", "DoNotCall", "TotalVisits", "TotalTimeSpentonWebsite",
+        "PageViewsPerVisit", "LastActivity", "Country", "Specialization", "HowdidyouhearaboutXEducation",
+        "Whatisyourcurrentoccupation", "Whatmattersmosttoyouinchoosingacourse", "Search", "NewspaperArticle",
+        "XEducationForums", "Newspaper", "DigitalAdvertisement", "ThroughRecommendations", "Tags", "LeadQuality",
+        "LeadProfile", "City", "AsymmetriqueActivityIndex", "AsymmetriqueProfileIndex", "AsymmetriqueActivityScore",
+        "AsymmetriqueProfileScore", "AfreecopyofMasteringTheInterview", "LastNotableActivity"
     ])
 
     # Realizar el preprocesamiento de los datos
-    encoder = OrdinalEncoder()
-    # Solo se transforma las columnas categóricas
-    for column in data_to_predict.select_dtypes(include=['object']).columns:
-        data_to_predict[column] = encoder.fit_transform(data_to_predict[[column]])
-
-    # Escalar los datos
-    scaler = StandardScaler()
-    data_to_predict = scaler.fit_transform(data_to_predict)
+    data_to_predict = preprocessor.transform(data_to_predict)
 
     # Realizar la predicción utilizando el modelo cargado
     prediction = model.predict(data_to_predict)[0]
-    prediction = 'Sí' if prediction else 'No'
+    prediction = 'El cliente si se convertirá' if prediction == 1 else 'El cliente no se convertirá'
 
     # Devolver la predicción a la plantilla HTML
     return render_template('index.html', prediction=prediction)
